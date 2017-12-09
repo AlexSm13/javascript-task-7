@@ -22,7 +22,7 @@ function runParallel(jobs, parallelNum, timeout = 1000) {
         }
 
         function startJob(job, index) {
-            let answer = data => ans(data, index);
+            let answer = data => results(data, index);
             new Promise((resolveRes, rejectRes) => {
                 job().then(resolveRes, rejectRes);
                 setTimeout(rejectRes, timeout, new Error('Promise timeout'));
@@ -30,7 +30,7 @@ function runParallel(jobs, parallelNum, timeout = 1000) {
                 .catch(answer);
         }
 
-        function ans(data, index) {
+        function results(data, index) {
             result[index] = data;
             if (result.length === jobs.length) {
                 resolve(result);
